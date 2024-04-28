@@ -1,0 +1,141 @@
+/* Base styles */
+body {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    background-color: #f4f4f4;
+}
+
+/* Top bar styles */
+.top-bar {
+    background-color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.top-bar .app-name {
+    font-weight: bold;
+    color: #333;
+}
+
+.top-bar .search-bar {
+    border: 1px solid #e0e0e0;
+    padding: 5px 10px;
+}
+
+.top-bar .icons {
+    display: flex;
+    align-items: center;
+}
+
+.top-bar .icons .icon {
+    margin-left: 20px;
+}
+
+/* Navigation tabs */
+.nav-tabs {
+    display: flex;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.nav-tabs .tab {
+    padding: 5px 15px;
+    cursor: pointer;
+}
+
+.nav-tabs .tab.active {
+    border-bottom: 2px solid #333;
+}
+
+/* Secondary navigation bar */
+.secondary-nav {
+    background-color: #e0e0e0;
+    padding: 5px 20px;
+    display: flex;
+}
+
+.secondary-nav .option {
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+/* Task board */
+.task-board {
+    display: flex;
+    padding: 20px;
+}
+
+.task-board .column {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.task-board .column:last-child {
+    margin-right: 0;
+}
+
+.task-board .column .title {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.task-board .column .card {
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    margin-bottom: 10px;
+}
+
+/* Left side navigation menu */
+.side-menu {
+    width: 200px;
+    background-color: #fff;
+    padding: 20px;
+    border-right: 1px solid #e0e0e0;
+}
+
+.side-menu .menu-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.side-menu .menu-item .icon {
+    margin-right: 10px;
+}
+
+/* Colors for priority tags */
+.priority-high {
+    color: #fff;
+    background-color: #ff0000;
+}
+
+.priority-medium {
+    color: #fff;
+    background-color: #ffa500;
+}
+
+.priority-low {
+    color: #fff;
+    background-color: #008000;
+}
+
+/* Progress status colors */
+.status-completed {
+    color: #fff;
+    background-color: #008000;
+}
+
+.status-in-progress {
+    color: #fff;
+    background-color: #ffa500;
+}
+
+.status-not-started {
+    color: #fff;
+    background-color: #ff0000;
+}
