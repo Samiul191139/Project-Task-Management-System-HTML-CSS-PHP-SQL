@@ -23,26 +23,24 @@
 </head>
 <body>
     <header>
-        <!-- <h3 class="logo">Logo</h3>
-        <nav class="navigation">
-            <a href="#" class="nav-link">Home</a>
-            <a href="#" class="nav-link">About</a>
-            <a href="#" class="nav-link">Services</a>
-            <a href="#" class="nav-link">Contact</a>
-            <a href="login.php" class="btnloginpopup">Login</a>
-        </nav> -->
     <div class="contact-form">
         <h1></h1>
     </div>
     <nav>
         <form method="post">
             <ul>
-                <li><button type="submit" name="ui" class="btn">User Information</button></li>
-                <li><button type="submit" name="dashboard" class="btn">Dashboard</button></li>
-                <li><a href="project.php" class="nav-link">Projects</a></li>
+                <li><a href="admin.php">Home</a></li>
+                <li><a href="project.php" class="nav-link">View Projects</a></li>
                 <li><a href="a_create.php" class="nav-link">Create Project</a></li>
-                <li><button type="submit" name="apply_leave" class="btn">Apply for Leave</button></li>
-                <li><a href="a_logout.php" class="nav-link">Logout</a></li>
+                <li class="dropdown">
+                <button class="dropbtn">Options</button>
+                <div class="dropdown-content">
+                    <button type="submit" name="ui" class="btn">User Information</button>
+                    <button type="submit" name="dashboard" class="btn">Dashboard</button>
+                    <button type="submit" name="apply_leave" class="btn">Apply for Leave</button>
+                    <a href="a_logout.php" class="nav-link">Logout</a>
+                </div>
+            </li>
             </ul>
         </form>
     </nav>
