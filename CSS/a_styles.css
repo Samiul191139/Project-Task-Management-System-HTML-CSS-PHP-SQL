@@ -13,7 +13,7 @@ body {
 
 header {
     background-color: #B4B4B8;
-    padding: 30px;
+    padding: 25px;
     text-align: center;
 }
 
@@ -51,7 +51,7 @@ nav ul {
 nav ul li {
     display: inline;
     margin-right: 20px;
-    padding-right: 10px;
+    padding-right: 0; /* Adjusted padding-right */
 }
 
 nav ul li a {
@@ -59,13 +59,15 @@ nav ul li a {
     color: #F2EFE5;
     font-size: 16px;
     transition: color 0.3s ease;
-    border-bottom: 2px solid transparent;
+    border-bottom: 6px solid transparent;
+    padding-bottom: 10px; /* Removed padding-bottom from here */
 }
 
 nav ul li a:hover {
     color: #13D9DF;
-    border-bottom: 2px solid #13D9DF;
+    border-bottom: 6px solid #13D9DF;
 }
+
 
 .info {
     position: fixed;
@@ -139,13 +141,14 @@ nav button {
     color: #fff;
     font-size: 16px;
     transition: color 0.3s ease, border-bottom 0.3s ease; /* Add transition for underline effect */
-    border-bottom: 2px solid transparent; /* Initially no underline */
+    border-bottom: 6px solid transparent; /* Initially no underline */
     cursor: pointer;
+    padding-bottom: 9px;
 }
 
 nav button:hover {
     color: #13D9DF;
-    border-bottom: 2px solid #13D9DF; /* Add underline on hover */
+    border-bottom: 6px solid #13D9DF; /* Add underline on hover */
 }
 
 
