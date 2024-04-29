@@ -24,12 +24,13 @@
 </html>
 <?php
 session_start();
-
- echo "<br><br>Tasks created for {$_SESSION["project_id"]}.<br><br> ";
+    echo "<div class='info'>";
+    echo "Tasks created for Project: {$_SESSION["project_id"]}.";
+    echo "</div>";
 ?>
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <br>Click "Done" to go to the home page: <br>
-        <input type="submit" name="done" value="Done">
+        <input type="submit" name="done" value="done" class="submit-btn">
     </form>
     <?php
     if(isset($_POST['done'])) {
