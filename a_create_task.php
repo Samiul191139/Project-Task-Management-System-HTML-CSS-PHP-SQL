@@ -43,6 +43,8 @@ include("database.php");
             Enter the number of tasks to create: 
             <input type="number" name="num_tasks" min="1" required> <br>
             <input type="submit" name="submit" value="Submit" class="submit-btn">
+            <input type="submit" name="cancel" value="Cancel" class="cancel-btn">
+            <input type="hidden" name="project_id" value="<?php echo $_SESSION['project_id']; ?>"> <!-- Add a hidden input field for project ID -->
             </form>
         <?php } ?>
     </main>
@@ -61,14 +63,35 @@ if (!isset($_SESSION["a_id"]))
 }
 include("database.php");
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST") 
+{
+    if (isset($_POST['cancel'])) 
+    { // Check if cancel button is clicked
+        $id = filter_input(INPUT_POST, "project_id", FILTER_SANITIZE_NUMBER_INT); // Retrieve project ID from hidden field
+        $delete_sql = "DELETE FROM project WHERE id = '$id'";
+        if (mysqli_query($conn, $delete_sql)) 
+        {
+            echo "<p class='notify'> Project creation cancelled </p>";
+        } 
+        else 
+        {
+            echo "Error deleting record: " . mysqli_error($conn);
+        }
+        exit();
+    }
+
     $num_tasks = filter_input(INPUT_POST, "num_tasks", FILTER_VALIDATE_INT);
 
-    if ($num_tasks === false || $num_tasks <= 0) {
+    if ($num_tasks === false || $num_tasks <= 0) 
+    {
         echo "Please enter a valid number of tasks.";
-    } else {
+    }
+    else 
+    {
 
-        for ($i = 0; $i < $num_tasks; $i++) {
+        for ($i = 0; $i < $num_tasks; $i++) 
+        {
+
             ?>
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                 Enter Task ID for Task <?php echo $i + 1; ?>: <br>
@@ -89,11 +112,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </select><br><br>
             <?php
         }
+    }
     ?>
         <input type="submit" name="submit_task" value="Submit Task "><br><br>
     </form>
     <?php
-    }
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_task"])) {
