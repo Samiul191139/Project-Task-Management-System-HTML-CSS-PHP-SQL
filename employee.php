@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Employee Terminal</title>
+    <link rel="stylesheet" href="CSS\e_styles.css">
 </head>
     <h1>Welcome to the Home Page</h1>
     <?php
@@ -22,17 +23,18 @@
     ?>
 <body>
     <header>
-        <h1>Welcome, Employee!</h1>
+        <div class="container">
+        <h1 class="logo"></h1>
         <nav>
             <ul>
-                <li><a href="employee.php">Home</a></li>
-                <li><a href="e_logout.php">Logout</a></li>
-                <a href="employee.php"> HOME </a>
-                <a href="e_task.php"> view tasks </a>  
-                <a href="e_logout.php"> logout </a>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">Contact</a></li>
             </ul>
         </nav>
-    </header>
+        </div>
+  </header>
 </body>
 </html>
 <?php echo " ". $_SESSION["e_id"] ?>
