@@ -67,6 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($num_tasks === false || $num_tasks <= 0) {
         echo "Please enter a valid number of tasks.";
     } else {
+
         for ($i = 0; $i < $num_tasks; $i++) {
             ?>
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
@@ -152,7 +153,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_task"])) {
     } else {
         // Insert tasks into the database
         $maxCount = max(count($ids), count($p_ids), count($descriptions), count($e_ids)); // we know that every one will have 4 values
-
+        $_SESSION["task_count"] = $maxCount; // Assuming $maxCount holds the count of tasks created
         for ($i = 0; $i < $maxCount; $i++) 
         { // we can write 4 instead of max count
             // Initialize variables for each iteration
