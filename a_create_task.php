@@ -91,13 +91,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
         for ($i = 0; $i < $num_tasks; $i++) 
         {
-
             ?>
+            <main>
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                 Enter Task ID for Task <?php echo $i + 1; ?>: <br>
                 <input type="text" name="ids[]"><br>
-                Enter Project ID: 
-                <input type="text" name="p_ids[]" value="<?php echo $_SESSION["project_id"];?>"><br> 
+                <input type="hidden" name="p_ids[]" value="<?php echo $_SESSION["project_id"];?>"><br> 
                 Give Description for Task <?php echo $i + 1; ?>: <br>
                 <textarea id="description" name="descriptions[]" rows="4" cols="50" placeholder="Enter your description here..."></textarea><br>
                 Enter Employee ID: <br>
@@ -110,12 +109,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                     }
                     ?>
                 </select><br><br>
+                </main>
             <?php
         }
     }
     ?>
-        <input type="submit" name="submit_task" value="Submit Task "><br><br>
+    <main>
+        <input type="submit" name="submit_task" value="Submit Task" class="submit-btn"><br><br>
     </form>
+</main>
     <?php
 }
 
