@@ -8,7 +8,7 @@
 }
 
 body {
-    background-color: #BAE5F4;
+    background-color: #eef4f6;
 }
 
 header {
@@ -24,7 +24,7 @@ header {
 }
 
 .navigation a {
-    color: #fff;
+    color: #000;
     text-decoration: none;
     margin-left: 20px;
 }
@@ -37,7 +37,7 @@ header {
 }
 
 .nav-link:hover {
-    border-bottom: 3px solid white;
+    border-bottom: 3px solid black;
 }
 
 .btnloginpopup {

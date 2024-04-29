@@ -62,7 +62,7 @@
             }
             elseif (isset($_POST["dashboard"])) 
             {
-                // Display dashboard content here
+                header ("Location: dashboard.php") ;
             } 
             elseif (isset($_POST["apply_leave"])) 
             {

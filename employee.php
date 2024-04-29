@@ -39,4 +39,3 @@
     </main>
 </body>
 </html>
-<?php echo " ". $_SESSION["e_id"] ?>

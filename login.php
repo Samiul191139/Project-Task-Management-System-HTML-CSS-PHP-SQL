@@ -103,7 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                     $_SESSION["a_password"]=$password;
                     $_SESSION["a_email"] = $email;
                     $_SESSION["a_type"] = $type;
-                    header("Location: admin.php");
+                    header("Location: dashboard.php");
                     exit();
                 }
             } 

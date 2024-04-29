@@ -7,6 +7,9 @@ body {
 	font-weight: 800;
 }
 
+main{
+	margin-left:90px;
+}
 .container {
 	width: 80%;
 	margin: 0 auto;
@@ -40,7 +43,8 @@ nav ul {
 nav li {
   display: inline-block;
   margin-left: 70px;
-  padding-top: 23px;
+	margin-top: 20px;
+  padding-bottom: 23px;
 
   position: relative;
 }
@@ -49,7 +53,7 @@ nav a {
   color: #444;
   text-decoration: none;
   text-transform: uppercase;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 nav a:hover {
@@ -63,7 +67,7 @@ nav a::before {
   background-color: #F6F6F6;
 
   position: absolute;
-  top: 0;
+  bottom: 0;
   width: 0%;
 
   transition: all ease-in-out 250ms;
