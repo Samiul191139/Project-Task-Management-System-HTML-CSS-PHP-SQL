@@ -116,7 +116,7 @@
             <tr>
                 <th>ID</th>
                 <th>Email</th>
-                <th>Active Task Count</th>
+                <th>Ongoing Task</th>
             </tr>
             <?php
                 while ($employee_row = mysqli_fetch_assoc($employees_list_result)) {

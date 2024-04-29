@@ -20,10 +20,10 @@ if (!(mysqli_num_rows($result) > 0)) {
     $p_t_c = array(); // Number of completed tasks for each project
 
     // Fetch task counts for each project
-    $sql_nt = "SELECT project_id, count(id) FROM `task` GROUP BY project_id";
+    $sql_nt = "SELECT project_id, COUNT(id) AS task_count FROM `task` GROUP BY project_id";
     $r_nt = mysqli_query($conn, $sql_nt);
     while ($row = mysqli_fetch_assoc($r_nt)) {
-        $p_t[$row['project_id']] = $row['count(id)'];
+        $p_t[$row['project_id']] = $row['task_count'];
         $p_t_c[$row['project_id']] = 0; // Initialize completed tasks count to zero
     }
 
@@ -78,6 +78,7 @@ if (!(mysqli_num_rows($result) > 0)) {
                 <th>Project_ID</th>
                 <th>Project_Name</th>
                 <th>Description</th>
+                <th>Task_Count</th>
                 <th>Project completed (%)</th>
                 <th>Action</th>
             </tr>
@@ -87,6 +88,7 @@ if (!(mysqli_num_rows($result) > 0)) {
                     <td><?php echo $row["id"]; ?></td>
                     <td><?php echo $row["name"]; ?></td>
                     <td><?php echo $row["description"]; ?></td>
+                    <td><?php echo isset($p_t[$row['id']]) ? $p_t[$row['id']] : 0; ?></td>
                     <td><?php echo $row["total_percentage"]; ?></td>
                     <td>
                         <form action="a_delete_project.php" method="POST">
