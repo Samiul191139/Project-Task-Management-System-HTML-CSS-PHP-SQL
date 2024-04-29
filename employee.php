@@ -6,7 +6,22 @@
     <title>Employee Terminal</title>
     <link rel="stylesheet" href="CSS\e_styles.css">
 </head>
-    <h1>Welcome to the Home Page</h1>
+<body>
+    <header>
+        <div class="container">
+        <h1 class="logo"></h1>
+        <nav>
+            <ul>
+            <li><a href="employee.php">Home</a></li>
+            <li><a href="e_task.php"> View Tasks</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="e_logout.php">Logout</a></li>
+            </ul>
+        </nav>
+        </div>
+  </header>
+  <main>
+  <h1>Welcome to the Home Page</h1>
     <?php
     session_start();
     if (isset($_SESSION["e_id"]))
@@ -21,20 +36,7 @@
         echo "<a href='login.php'>Login</a>";
     }
     ?>
-<body>
-    <header>
-        <div class="container">
-        <h1 class="logo"></h1>
-        <nav>
-            <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Pricing</a></li>
-            <li><a href="#">Contact</a></li>
-            </ul>
-        </nav>
-        </div>
-  </header>
+    </main>
 </body>
 </html>
 <?php echo " ". $_SESSION["e_id"] ?>
