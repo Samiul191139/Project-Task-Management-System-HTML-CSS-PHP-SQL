@@ -24,6 +24,10 @@ main{
     margin-right: 20px;
 }
 
+h2{
+    text-align: center;
+    padding-bottom: 20px;
+}
 h3{
     padding-top:30px;
 }
@@ -186,11 +190,11 @@ nav button:hover {
 
 .left, .right{
     width: 50%;
-    padding: 20px;
+    padding-left: 30px;
 }
 
 table {
-    width: 50%;
+    width: 45%;
     border-collapse: collapse;
     margin-top: 30px;
 }
@@ -217,4 +221,8 @@ tr:nth-child(even) {
 
 tr:hover {
     background-color: #e2e2e2;
+}
+
+.chart-container{
+    background-color: #C7C8CC;
 }
