@@ -75,10 +75,10 @@ if (!(mysqli_num_rows($result) > 0)) {
     <main>
         <table>
             <tr>
-                <th>Project_ID</th>
-                <th>Project_Name</th>
+                <th>Project ID</th>
+                <th>Project Name</th>
                 <th>Description</th>
-                <th>Task_Count</th>
+                <th>Task Assigned</th>
                 <th>Project completed (%)</th>
                 <th>Action</th>
             </tr>

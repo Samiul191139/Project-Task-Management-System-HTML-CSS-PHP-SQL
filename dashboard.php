@@ -94,6 +94,7 @@ while ($row = mysqli_fetch_assoc($completed_tasks_by_employee_result)) {
                     <li><a href="project.php" class="nav-link">View Projects</a></li>
                     <li><a href="a_create.php" class="nav-link">Create Project</a></li>
                     <li><a href="admin.php">More</a></li>
+                    <li><a href="a_logout.php">Logout</a></li>
                 </ul>
             </form>
         </nav>
@@ -152,7 +153,7 @@ while ($row = mysqli_fetch_assoc($completed_tasks_by_employee_result)) {
 
             <h3>Employees List</h3>
             <div class="flex">
-            <table>
+            <table class="left">
                 <tr>
                     <th>ID</th>
                     <th>Email</th>

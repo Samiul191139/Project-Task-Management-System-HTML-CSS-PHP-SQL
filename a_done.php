@@ -41,6 +41,6 @@ session_start();
     <?php
     if(isset($_POST['done'])) {
        // session_destroy(); // i blv if we do session here then we will loose session values in loggin so no.
-        header("Location: admin.php");
+        header("Location: dashboard.php");
     }
     ?>
