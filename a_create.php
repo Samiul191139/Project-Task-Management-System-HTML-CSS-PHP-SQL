@@ -13,7 +13,7 @@
     </div>
         <nav>
             <ul>
-                <li><a href="admin.php">Home</a></li>
+                <li><a href="dashboard.php">Dashboard</a></li>
                 <li><a href="project.php">View Projects</a></li>
                 <li><a href="a_create.php">Create Project</a></li>
                 <li><a href="a_logout.php">Logout</a></li>

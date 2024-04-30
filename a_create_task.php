@@ -63,19 +63,29 @@ if (!isset($_SESSION["a_id"]))
 }
 include("database.php");
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") 
-{
-    if (isset($_POST['cancel'])) 
-    { // Check if cancel button is clicked
-        $id = filter_input(INPUT_POST, "project_id", FILTER_SANITIZE_NUMBER_INT); // Retrieve project ID from hidden field
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['cancel'])) { 
+        // Check if cancel button is clicked from the task form
+        $id = filter_input(INPUT_POST, "project_id", FILTER_SANITIZE_NUMBER_INT); 
+        // Retrieve project ID from hidden field
         $delete_sql = "DELETE FROM project WHERE id = '$id'";
-        if (mysqli_query($conn, $delete_sql)) 
-        {
+        if (mysqli_query($conn, $delete_sql)) {
             echo "<p class='notify'> Project creation cancelled </p>";
-        } 
-        else 
-        {
-            echo "Error deleting record: " . mysqli_error($conn);
+        } else {
+            echo "<p class='notify'>Error deleting record </p>";
+        }
+        exit();
+    }
+    if (isset($_POST['cancel_main'])) //is not working no matter what
+    { 
+        // Check if cancel button is clicked from the main form
+        $id = filter_input(INPUT_POST, "id", FILTER_SANITIZE_NUMBER_INT); 
+        // Retrieve project ID from the main form
+        $delete_sql = "DELETE FROM project WHERE id = '$id'";
+        if (mysqli_query($conn, $delete_sql)) {
+            echo "<p class='notify'> Project creation cancelled </p>";
+        } else {
+            echo "<p class='notify'>Error deleting record </p>";
         }
         exit();
     }
@@ -114,14 +124,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         }
     }
     ?>
-    <main>
-        <input type="submit" name="submit_task" value="Submit Task" class="submit-btn"><br><br>
+<main>
+        <input type="submit" name="submit_task" value="Submit Task" class="submit-btn">
+        <input type="submit" name="cancel_main" value="cancel" class="cancel-btn"><br><br>
     </form>
 </main>
     <?php
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_task"])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_task"])) 
+{
     $ids = array();
     $p_ids = array();
     $descriptions = array();
@@ -173,26 +185,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_task"])) {
     }
     
     // Check if all fields are filled
-    if (!$allFieldsFilled) {
-        echo "Please fill in all fields for the Tasks.";
-    } else {
+        if (!$allFieldsFilled) 
+        {
+            echo "Please fill in all fields for the Tasks.";
+        } 
+        else 
+        {
         // Insert tasks into the database
-        $maxCount = max(count($ids), count($p_ids), count($descriptions), count($e_ids)); // we know that every one will have 4 values
-        $_SESSION["task_count"] = $maxCount; // Assuming $maxCount holds the count of tasks created
-        for ($i = 0; $i < $maxCount; $i++) 
-        { // we can write 4 instead of max count
-            // Initialize variables for each iteration
-            $id = $ids[$i % count($ids)] ;  // again we can write 4 insted of using count since we know all will have 4 values
-            $p_id = $p_ids[$i % count($p_ids)] ;
-            $description = $descriptions[$i % count($descriptions)] ;
-            $e_id = $e_ids[$i % count($e_ids)] ;
+            $maxCount = max(count($ids), count($p_ids), count($descriptions), count($e_ids)); // we know that every one will have 4 values
+            $_SESSION["task_count"] = $maxCount; // Assuming $maxCount holds the count of tasks created
+            for ($i = 0; $i < $maxCount; $i++) 
+            { // we can write 4 instead of max count
+                // Initialize variables for each iteration
+                $id = $ids[$i % count($ids)] ;  // again we can write 4 insted of using count since we know all will have 4 values
+                $p_id = $p_ids[$i % count($p_ids)] ;
+                $description = $descriptions[$i % count($descriptions)] ;
+                $e_id = $e_ids[$i % count($e_ids)] ;
 
-            $sql = "INSERT INTO task (id, project_id, description, employee_id) 
-                    VALUES ('$id', '$p_id', '$description', '$e_id')";
-            mysqli_query($conn, $sql);
-        }
-        mysqli_close($conn);
-        header("Location: a_done.php");
+                $sql = "INSERT INTO task (id, project_id, description, employee_id) 
+                        VALUES ('$id', '$p_id', '$description', '$e_id')";
+                mysqli_query($conn, $sql);
+            }
+            mysqli_close($conn);
+            header("Location: a_done.php");
         }
     }
+    // elseif (isset($_POST['cancel'])) 
+    // { // Check if cancel button is clicked
+    //     echo "project: $id";
+    //     $id = filter_input(INPUT_POST, "project_id", FILTER_SANITIZE_NUMBER_INT); // Retrieve project ID from hidden field
+    //     $delete_sql = "DELETE FROM project WHERE id = '$id'";
+    //     if (mysqli_query($conn, $delete_sql)) 
+    //     {
+    //         echo "<p class='notify'> Project creation cancelled </p>";
+    //     } 
+    //     else 
+    //     {
+    //         echo "<p class='notify'>Error deleting record </p>";
+    //     }
+    //     exit();
+    // }
 ?>

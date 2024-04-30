@@ -290,3 +290,23 @@ tr:hover {
 .cancel-btn:hover {
     background-color: #13D9DF;
 }
+
+/* CSS for dropdown menu */
+select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    width: 10%;
+    box-sizing: border-box;
+    background-color: #fff;
+}
+
+/* Style for options */
+option {
+    text-align:center;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #fff;
+    color: #333;
+}
