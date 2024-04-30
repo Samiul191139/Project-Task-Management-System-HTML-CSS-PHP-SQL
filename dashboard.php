@@ -1,3 +1,78 @@
+<?php
+session_start();
+
+// Include the database connection file
+include("database.php");
+
+if (!isset($_SESSION["a_id"])) {
+    // Redirect if not logged in
+    header("Location: login.php");
+    exit();
+}
+
+// Query to get total projects
+$projects_query = "SELECT COUNT(*) AS total_projects FROM project";
+$projects_result = mysqli_query($conn, $projects_query);
+$projects_row = mysqli_fetch_assoc($projects_result);
+$total_projects = $projects_row['total_projects'];
+
+// Query to get total tasks
+$tasks_query = "SELECT COUNT(*) AS total_tasks FROM task";
+$tasks_result = mysqli_query($conn, $tasks_query);
+$tasks_row = mysqli_fetch_assoc($tasks_result);
+$total_tasks = $tasks_row['total_tasks'];
+
+// Query to get total completed tasks
+$completed_tasks_query = "SELECT COUNT(*) AS total_completed_tasks FROM task WHERE status = 'completed'";
+$completed_tasks_result = mysqli_query($conn, $completed_tasks_query);
+$completed_tasks_row = mysqli_fetch_assoc($completed_tasks_result);
+$total_completed_tasks = $completed_tasks_row['total_completed_tasks'];
+
+// Query to get total employees
+$employees_query = "SELECT COUNT(*) AS total_employees FROM users";
+$employees_result = mysqli_query($conn, $employees_query);
+$employees_row = mysqli_fetch_assoc($employees_result);
+$total_employees = $employees_row['total_employees'];
+
+// Query to get list of employees with their id, email, and active task count
+$employees_list_query = "SELECT id, email FROM users";
+$employees_list_result = mysqli_query($conn, $employees_list_query);
+
+// Query to get the employee with the highest number of completed tasks
+$top_employee_query = "
+SELECT u.id AS employee_id, u.email, COUNT(t.id) AS completed_tasks, COUNT(DISTINCT p.id) AS projects_done FROM users u LEFT JOIN task t ON u.id = t.employee_id AND t.status = 'completed' LEFT JOIN project p ON t.project_id = p.id GROUP BY u.id, u.email 
+ORDER BY completed_tasks DESC LIMIT 3";
+$top_employee_result = mysqli_query($conn, $top_employee_query);
+$top_employee_row = mysqli_fetch_assoc($top_employee_result);
+
+$completed_tasks_by_employee_query = "
+    SELECT 
+        u.id AS employee_id, 
+        u.email, 
+        COUNT(t.id) AS completed_tasks
+    FROM 
+        users u
+    LEFT JOIN 
+        task t ON u.id = t.employee_id AND t.status = 'completed'
+    GROUP BY 
+        u.id, u.email
+    ORDER BY 
+        completed_tasks DESC
+        limit 3";
+$completed_tasks_by_employee_result = mysqli_query($conn, $completed_tasks_by_employee_query);
+
+// Initialize arrays to store employee data for the chart
+$employee_ids = [];
+$employee_emails = [];
+$completed_tasks_counts = [];
+
+while ($row = mysqli_fetch_assoc($completed_tasks_by_employee_result)) {
+    $employee_ids[] = $row['employee_id'];
+    $employee_emails[] = $row['email'];
+    $completed_tasks_counts[] = $row['completed_tasks'];
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,120 +80,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Terminal</title>
     <link rel="stylesheet" href="CSS\dashstyle.css">
-    <script>
-        // Function to hide the notification after a specified duration
-        function hideNotification() {
-            var notification = document.querySelector('.notify');
-            if (notification) {
-                setTimeout(function() {
-                    notification.style.display = 'none';
-                }, 5000); // 5000 milliseconds = 5 seconds
-            }
-        }
-        // Call the function when the page loads
-        window.onload = function() {
-            hideNotification();
-        };
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <header>
-    <div class="contact-form">
-        <h1></h1>
-    </div>
-    <nav>
-        <form method="post">
-            <ul>
-                <li><a href="admin.php">Home</a></li>
-                <li><a href="project.php" class="nav-link">View Projects</a></li>
-                <li><a href="a_create.php" class="nav-link">Create Project</a></li>
-                <li class="dropdown">
-                <button class="dropbtn">Options</button>
-                <div class="dropdown-content">
-                    <button type="submit" name="ui" class="btn">User Information</button>
-                    <button type="submit" name="dashboard" class="btn">Dashboard</button>
-                    <button type="submit" name="apply_leave" class="btn">Apply for Leave</button>
-                    <a href="a_logout.php" class="nav-link">Logout</a>
-                </div>
-            </li>
-            </ul>
-        </form>
-    </nav>
-    </header>
-    <?php
-    // Include the database connection file
-    include("database.php");
-    
-    session_start();
-    
-    if (isset($_SESSION["a_id"])) 
-    {
-        // Query to get total projects
-        $projects_query = "SELECT COUNT(*) AS total_projects FROM project";
-        $projects_result = mysqli_query($conn, $projects_query);
-        $projects_row = mysqli_fetch_assoc($projects_result);
-        $total_projects = $projects_row['total_projects'];
-        
-        // Query to get total tasks
-        $tasks_query = "SELECT COUNT(*) AS total_tasks FROM task";
-        $tasks_result = mysqli_query($conn, $tasks_query);
-        $tasks_row = mysqli_fetch_assoc($tasks_result);
-        $total_tasks = $tasks_row['total_tasks'];
-        
-        // Query to get total completed tasks
-        $completed_tasks_query = "SELECT COUNT(*) AS total_completed_tasks FROM task WHERE status = 'Completed'";
-        $completed_tasks_result = mysqli_query($conn, $completed_tasks_query);
-        $completed_tasks_row = mysqli_fetch_assoc($completed_tasks_result);
-        $total_completed_tasks = $completed_tasks_row['total_completed_tasks'];
-        
-        // Query to get total employees
-        $employees_query = "SELECT COUNT(*) AS total_employees FROM users";
-        $employees_result = mysqli_query($conn, $employees_query);
-        $employees_row = mysqli_fetch_assoc($employees_result);
-        $total_employees = $employees_row['total_employees'];
-        
-        // Query to get list of employees with their id, email, and active task count
-        $employees_list_query = "SELECT id, email FROM users";
-        $employees_list_result = mysqli_query($conn, $employees_list_query);
-    } 
-    else 
-    {
-        // Redirect if not logged in
-        header("Location: login.php");
-        exit();
-    }
-?>
-
-<main>
-    <div class="dashboard">
-        <h2>Dashboard</h2>
-        <div class="dashboard-summary">
-            <div class="summary-item">
-                <h3>Total Projects</h3>
-                <p><?php echo $total_projects; ?></p>
-            </div>
-            <div class="summary-item">
-                <h3>Total Tasks</h3>
-                <p><?php echo $total_tasks; ?></p>
-            </div>
-            <div class="summary-item">
-                <h3>Completed Tasks</h3>
-                <p><?php echo $total_completed_tasks; ?></p>
-            </div>
-            <div class="summary-item">
-                <h3>Total Employees</h3>
-                <p><?php echo $total_employees; ?></p>
-            </div>
+        <div class="contact-form">
+            <h1></h1>
         </div>
-        
-        <h3>Employees List</h3>
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Email</th>
-                <th>Ongoing Task</th>
-            </tr>
-            <?php
+        <nav>
+            <form method="post">
+                <ul>
+                    <li><a href="dashboard.php">Dashboard</a></li>
+                    <li><a href="project.php" class="nav-link">View Projects</a></li>
+                    <li><a href="a_create.php" class="nav-link">Create Project</a></li>
+                    <li><a href="admin.php">More</a></li>
+                </ul>
+            </form>
+        </nav>
+    </header>
+
+    <main>
+        <div class="dashboard">
+            <h2>Dashboard</h2>
+            <div class="dashboard-summary">
+                <div class="summary-item">
+                    <h3>Total Projects</h3>
+                    <p><?php echo $total_projects; ?></p>
+                </div>
+                <div class="summary-item">
+                    <h3>Total Tasks</h3>
+                    <p><?php echo $total_tasks; ?></p>
+                </div>
+                <div class="summary-item">
+                    <h3>Completed Tasks</h3>
+                    <p><?php echo $total_completed_tasks; ?></p>
+                </div>
+                <div class="summary-item">
+                    <h3>Total Employees</h3>
+                    <p><?php echo $total_employees; ?></p>
+                </div>
+            </div>
+            <h3>Top Employee with Highest Completed Tasks</h3>
+            <div class="flex">
+                <table class="left">
+                    <tr>
+                        <th>ID</th>
+                        <th>Email</th>
+                        <th>Completed Tasks</th>
+                    </tr>
+                    <?php
+                    // Re-fetch the data before using it in the table
+                    $completed_tasks_by_employee_result = mysqli_query($conn, $completed_tasks_by_employee_query);
+                    // Fetch and display the top 3 employees with the highest completed tasks
+                    while ($employee_row = mysqli_fetch_assoc($completed_tasks_by_employee_result)) {
+                        echo "<tr>";
+                        echo "<td>" . $employee_row['employee_id'] . "</td>";
+                        echo "<td>" . $employee_row['email'] . "</td>";
+                        echo "<td>" . $employee_row['completed_tasks'] . "</td>";
+                        echo "</tr>";
+                    }
+                    ?>
+                </table>
+
+
+                <div class="right">
+                    <div class="chart-container">
+                        <canvas id="completedTasksChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Employees List</h3>
+            <div class="flex">
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>Ongoing Task</th>
+                </tr>
+                <?php
+                // Fetch and display the list of employees
                 while ($employee_row = mysqli_fetch_assoc($employees_list_result)) {
                     // Query to get active task count for each employee
                     $employee_id = $employee_row['id'];
@@ -126,14 +167,45 @@
                     $active_task_count_result = mysqli_query($conn, $active_task_count_query);
                     $active_task_count_row = mysqli_fetch_assoc($active_task_count_result);
                     $active_task_count = $active_task_count_row['active_task_count'];
-                    
+
                     echo "<tr>";
                     echo "<td>" . $employee_row['id'] . "</td>";
                     echo "<td>" . $employee_row['email'] . "</td>";
                     echo "<td>" . $active_task_count . "</td>";
                     echo "</tr>";
                 }
-            ?>
-        </table>
+                ?>
+            </table>
+        </div>
     </div>
-</main>
+
+        <script>
+            // JavaScript code to generate the bar chart using Chart.js
+            var ctx = document.getElementById('completedTasksChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: <?php echo json_encode($employee_emails); ?>,
+                    datasets: [{
+                        label: 'Completed Tasks',
+                        data: <?php echo json_encode($completed_tasks_counts); ?>,
+                        backgroundColor: 'rgba(18, 236, 84, 1)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        </script>
+    </main>
+    <main>
+</body>
+</html>
