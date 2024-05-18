@@ -28,6 +28,18 @@ $completed_tasks_result = mysqli_query($conn, $completed_tasks_query);
 $completed_tasks_row = mysqli_fetch_assoc($completed_tasks_result);
 $total_completed_tasks = $completed_tasks_row['total_completed_tasks'];
 
+// Query to get total ongoing tasks
+$ongoing_tasks_query = "SELECT COUNT(*) AS total_ongoing_tasks FROM task WHERE status = 'on going'";
+$ongoing_tasks_result = mysqli_query($conn, $ongoing_tasks_query);
+$ongoing_tasks_row = mysqli_fetch_assoc($ongoing_tasks_result);
+$total_ongoing_tasks = $ongoing_tasks_row['total_ongoing_tasks'];
+
+// Query to get total incomplete tasks
+$incomplete_tasks_query = "SELECT COUNT(*) AS total_incomplete_tasks FROM task WHERE status = 'incomplete'";
+$incomplete_tasks_result = mysqli_query($conn, $incomplete_tasks_query);
+$incomplete_tasks_row = mysqli_fetch_assoc($incomplete_tasks_result);
+$total_incomplete_tasks = $incomplete_tasks_row['total_incomplete_tasks'];
+
 // Query to get total employees
 $employees_query = "SELECT COUNT(*) AS total_employees FROM users";
 $employees_result = mysqli_query($conn, $employees_query);
@@ -158,6 +170,8 @@ while ($row = mysqli_fetch_assoc($completed_tasks_by_employee_result)) {
                     <th>ID</th>
                     <th>Email</th>
                     <th>Ongoing Task</th>
+                    <th>Assigned Project</th>
+                    <th>Completed Tasks</th>
                 </tr>
                 <?php
                 // Fetch and display the list of employees
@@ -169,14 +183,33 @@ while ($row = mysqli_fetch_assoc($completed_tasks_by_employee_result)) {
                     $active_task_count_row = mysqli_fetch_assoc($active_task_count_result);
                     $active_task_count = $active_task_count_row['active_task_count'];
 
+                // Query to get assigned project count for each employee
+                    $assigned_projects_query = "SELECT COUNT(DISTINCT project_id) AS assigned_project_count FROM task WHERE employee_id = '$employee_id'";
+                    $assigned_projects_result = mysqli_query($conn, $assigned_projects_query);
+                    $assigned_projects_row = mysqli_fetch_assoc($assigned_projects_result);
+                    $assigned_project_count = $assigned_projects_row['assigned_project_count'];
+                    
+                // Query to get completed project count for each employee
+                    $completed_projects_query = "SELECT COUNT(DISTINCT project_id) AS completed_project_count FROM task WHERE employee_id = '$employee_id' AND status = 'completed'";
+                    $completed_projects_result = mysqli_query($conn, $completed_projects_query);
+                    $completed_projects_row = mysqli_fetch_assoc($completed_projects_result);
+                    $completed_project_count = $completed_projects_row['completed_project_count'];
+
                     echo "<tr>";
                     echo "<td>" . $employee_row['id'] . "</td>";
                     echo "<td>" . $employee_row['email'] . "</td>";
                     echo "<td>" . $active_task_count . "</td>";
+                    echo "<td>" . $assigned_project_count . "</td>";
+                    echo "<td>" . $completed_project_count . "</td>";
                     echo "</tr>";
                 }
                 ?>
             </table>
+            <div class="right">
+                    <div class="chart-container">
+                        <canvas id="tasksDistributionChart"></canvas>
+                    </div>
+            </div>
         </div>
     </div>
 
@@ -203,6 +236,33 @@ while ($row = mysqli_fetch_assoc($completed_tasks_by_employee_result)) {
                             }
                         }]
                     }
+                }
+            });
+
+            // JavaScript code to generate the pie chart for task distribution
+            var ctxPie = document.getElementById('tasksDistributionChart').getContext('2d');
+            var tasksDistributionChart = new Chart(ctxPie, {
+                type: 'pie',
+                data: {
+                    labels: ['Completed Tasks', 'Ongoing Tasks', 'Incomplete Tasks'],
+                    datasets: [{
+                        data: [<?php echo $total_completed_tasks; ?>, <?php echo $total_ongoing_tasks; ?>, <?php echo $total_incomplete_tasks; ?>],
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.6)',
+                            'rgba(255, 206, 86, 0.6)',
+                            'rgba(255, 99, 132, 0.6)'
+                        ],
+                        borderColor: [
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(255, 99, 132, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
                 }
             });
         </script>
