@@ -50,16 +50,18 @@ $e_id = $_SESSION["e_id"];
         if ($result->num_rows > 0) {
             echo "<table>
                 <tr>
-                    <th>PROJECT NO.</th>
-                    <th>TASK NO.</th>
-                    <th>DESCRIPTION</th>
-                    <th>STATUS</th>
+                    <th>Project NO.</th>
+                    <th>Task NO.</th>
+                    <th>Description</th>
+                    <th>Assigned Date</th>
+                    <th>Status</th>
                 </tr>";
             while ($row = $result->fetch_assoc()) {
                 echo "<tr>
                     <td>" . htmlspecialchars($row["project_id"]) . "</td>
                     <td>" . htmlspecialchars($row["id"]) . "</td>
                     <td>" . htmlspecialchars($row["description"]) . "</td>
+                    <td>" . htmlspecialchars($row["Date"]) . "</td>
                     <td>" . htmlspecialchars($row["status"]) . "</td>
                 </tr>";
             }

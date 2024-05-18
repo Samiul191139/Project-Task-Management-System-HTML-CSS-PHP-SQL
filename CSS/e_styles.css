@@ -17,11 +17,6 @@ h2{
 	padding-bottom: 20px;
 }
 
-form{
-	float: right;
-	padding-bottom: 10px;
-}
-
 main {
     padding: 20px;
     margin-left: 40px;
@@ -149,6 +144,7 @@ tr:hover {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  padding-top: 10px;
 }
 
 .submit-btn:hover {

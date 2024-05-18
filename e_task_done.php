@@ -34,13 +34,21 @@ $e_id = $_SESSION["e_id"];
         </div>
     </header>
     <main>
+        </table>
+        <input type="submit" name="submit" value="Submit" class="submit-btn">
+            <form action="e_task.php" method="post">
+            <input type="submit" name="submit" value="Go Back" class="submit-btn">
+            </form>
+        </form>
     <?php
     $sql = "SELECT * FROM task WHERE employee_id = {$e_id} ORDER BY project_id ASC";
     $result = mysqli_query($conn, $sql);
     if (!(mysqli_num_rows($result) > 0)) {
         // if the number of rows is not greater than 0 or empty
         echo "NO task found.";
-    } else {
+    } 
+    else 
+    {
         ?>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <table>
@@ -48,6 +56,7 @@ $e_id = $_SESSION["e_id"];
                     <th>Project NO</th>
                     <th>Task NO</th>
                     <th>Description</th>
+                    <th>Assigned Date</th>
                     <th>Current Status</th>
                     <th>Change</th>
                 </tr>
@@ -56,6 +65,7 @@ $e_id = $_SESSION["e_id"];
                         <td><?php echo htmlspecialchars($row["project_id"]); ?></td>
                         <td><?php echo htmlspecialchars($row["id"]); ?></td>
                         <td><?php echo htmlspecialchars($row["description"]); ?></td>
+                        <td><?php echo htmlspecialchars($row["Date"]); ?></td>
                         <td><?php echo htmlspecialchars($row["status"]); ?></td>
                         <td>
                             <select name="statuses[<?php echo $row['id']; ?>]">
@@ -66,21 +76,20 @@ $e_id = $_SESSION["e_id"];
                         </td>
                     </tr>
                 <?php endwhile; ?>
-            </table>
-            <input type="submit" name="submit" value="submit" class="submit-btn">
-        </form>
         <?php
     }
     ?>
-    <a href="e_task.php">click to go back...</a>
     </main>
 </body>
 </html>
 
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
-    if (isset($_POST['statuses']) && is_array($_POST['statuses'])) {
-        foreach ($_POST['statuses'] as $task_id => $status) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) 
+{
+    if (isset($_POST['statuses']) && is_array($_POST['statuses'])) 
+    {
+        foreach ($_POST['statuses'] as $task_id => $status) 
+        {
             $u_status = mysqli_real_escape_string($conn, $status);
             $task_id = mysqli_real_escape_string($conn, $task_id);
             $sqln = "UPDATE task SET status='$u_status' WHERE id=$task_id AND employee_id=$e_id";
