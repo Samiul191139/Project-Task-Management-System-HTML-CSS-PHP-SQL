@@ -28,7 +28,7 @@ include("database.php");
 
     <main>
         <h2>Project Form</h2>
-        <form action="<?php htmlspecialchars( $_SERVER["PHP_SELF"] )?>" method="post">
+        <!-- <form action="<?php htmlspecialchars( $_SERVER["PHP_SELF"] )?>" method="post">
             <label for="id">Enter Project ID:</label><br>
             <input type="text" name="id"><br>
             <label for="name">Enter Project Name:</label><br>
@@ -36,7 +36,7 @@ include("database.php");
             <label for="description">Give Description:</label><br>
             <textarea id="description" name="description" rows="4" cols="50" placeholder="Enter your description here..."></textarea><br>
             <input type="submit" name="submit" value="Submit" class="submit-btn">
-        </form>
+        </form> -->
     </main>
         <?php if (!isset($_POST['submit'])) { ?>
             <form class="task-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">

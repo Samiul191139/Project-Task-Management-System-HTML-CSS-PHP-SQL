@@ -1,14 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
 
 body {
 	margin: 0;
 	background: #F7F7F7;
-	font-family: 'Work Sans', sans-serif;
 	font-weight: 800;
 }
 
-main{
-	margin-left:90px;
+main {
+    padding: 20px;
+    margin-left: 40px;
+    margin-right: 40px;
 }
 .container {
 	width: 80%;
@@ -17,6 +24,7 @@ main{
 
 header {
   background: #43D8C9;
+  text-align: center;
 }
 
 header::after {
@@ -75,4 +83,64 @@ nav a::before {
 
 nav a:hover::before {
   width: 100%;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 30px;
+}
+
+th,
+td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #C7C8CC;
+  color: black;
+}
+
+tr {
+  background-color: #C7C8CC;
+}
+
+tr:nth-child(even) {
+  background-color: #fff;
+}
+
+tr:hover {
+  background-color: #e2e2e2;
+}
+
+.notify {
+  position: fixed;
+  top: 80%;
+  right: 0;
+  transform: translateX(0);
+  background-color: #31363F;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: top 0.5s ease;
+  z-index: 9999;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.submit-btn {
+  background-color: #31363F;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #13D9DF;
 }

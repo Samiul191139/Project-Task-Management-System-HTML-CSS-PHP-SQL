@@ -1,6 +1,14 @@
 <?php
 session_start();
 include("database.php");
+
+// Check if the user is logged in
+if (!isset($_SESSION["e_id"])) {
+    header("Location: login.php");
+    exit();
+}
+
+$e_id = $_SESSION["e_id"];
 ?>
 
 <!DOCTYPE html>
@@ -8,42 +16,60 @@ include("database.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Task update</title>
+    <link rel="stylesheet" href="CSS\e_styles.css">
 </head>
 <body>
-    <?php
-    $e_id= $_SESSION["e_id"];
-    $sql = "SELECT * FROM task WHERE employee_id = {$e_id} ORDER BY project_id ASC";
-    $result=mysqli_query($conn,$sql);
-    if(!(mysqli_num_rows($result)>0))
-    {  // if the number of rows is not greater then 0 or empty
-        echo "NO task found.";
+    <header>
+        <div class="container">
+            <h1 class="logo"></h1>
+            <nav>
+                <ul>
+                    <li><a href="employee.php">Home</a></li>
+                    <li><a href="e_task.php">View Tasks</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="e_logout.php">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <h2>Information Table</h2>
+        <form action="e_task_done.php" method="post">
+            <input type="submit" name="submit" value="Change Status" class="submit-btn">
+        </form>
+        <?php
+        // Query to get the tasks
+        $sql = "SELECT * FROM task WHERE employee_id = ? ORDER BY project_id ASC";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $e_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            echo "<table>
+                <tr>
+                    <th>PROJECT NO</th>
+                    <th>TASK NO</th>
+                    <th>DESCRIPTION</th>
+                    <th>STATUS</th>
+                </tr>";
+            while ($row = $result->fetch_assoc()) {
+                echo "<tr>
+                    <td>" . htmlspecialchars($row["project_id"]) . "</td>
+                    <td>" . htmlspecialchars($row["id"]) . "</td>
+                    <td>" . htmlspecialchars($row["description"]) . "</td>
+                    <td>" . htmlspecialchars($row["status"]) . "</td>
+                </tr>";
+            }
+            echo "</table>";
+        } else {
+            echo "<p>NO task found.</p>";
+        }
+        $stmt->close();
+        ?>
         
-    }
-    ?>
-    
-    <table>
-        <tr>
-            <th> PROJECT NO </th>
-            <th> TASK NO </th>
-            <th> DECRIPTION </th>
-            <th> STATUS </th>
-        </tr>
-        <?php while($row=mysqli_fetch_assoc($result)): ?>
-            <tr>
-                <td><?php echo $row["project_id"]; ?></td>
-                <td><?php echo $row["id"]; ?></td>
-                
-                <td><?php echo $row["description"]; ?></td>
-               <td> <?php echo $row["status"]; ?></td>
-               <a href="e_task.php">click to go back...</a>
-               <a href="e_logout.php">Logout...</a>
-               <a href="employee.php">Home...</a>
-            </tr>
-        <?php endwhile; ?>
-    </table>
-    <a href="e_task_done.php">click to change status...</a>
+    </main>
 </body>
 </html>
-
-
