@@ -12,6 +12,16 @@ body {
 	font-weight: 800;
 }
 
+h2{
+	text-align:center;
+	padding-bottom: 20px;
+}
+
+form{
+	float: right;
+	padding-bottom: 10px;
+}
+
 main {
     padding: 20px;
     margin-left: 40px;
@@ -53,7 +63,7 @@ nav li {
   margin-left: 70px;
 	margin-top: 20px;
   padding-bottom: 23px;
-
+	
   position: relative;
 }
 
@@ -142,5 +152,5 @@ tr:hover {
 }
 
 .submit-btn:hover {
-  background-color: #13D9DF;
+  background-color: #43D8C9;
 }

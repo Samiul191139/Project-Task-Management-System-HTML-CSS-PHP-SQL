@@ -50,8 +50,8 @@ $e_id = $_SESSION["e_id"];
         if ($result->num_rows > 0) {
             echo "<table>
                 <tr>
-                    <th>PROJECT NO</th>
-                    <th>TASK NO</th>
+                    <th>PROJECT NO.</th>
+                    <th>TASK NO.</th>
                     <th>DESCRIPTION</th>
                     <th>STATUS</th>
                 </tr>";

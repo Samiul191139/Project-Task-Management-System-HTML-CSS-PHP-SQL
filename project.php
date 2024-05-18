@@ -79,6 +79,7 @@ if (!(mysqli_num_rows($result) > 0)) {
                 <th>Project Name</th>
                 <th>Description</th>
                 <th>Task Assigned</th>
+                <th>Creation Date</th>
                 <th>Project completed (%)</th>
                 <th>Action</th>
             </tr>
@@ -89,6 +90,7 @@ if (!(mysqli_num_rows($result) > 0)) {
                     <td><?php echo $row["name"]; ?></td>
                     <td><?php echo $row["description"]; ?></td>
                     <td><?php echo isset($p_t[$row['id']]) ? $p_t[$row['id']] : 0; ?></td>
+                    <td><?php echo $row["Date"]; ?></td>
                     <td><?php echo $row["total_percentage"]; ?></td>
                     <td>
                         <form action="a_delete_project.php" method="POST">
