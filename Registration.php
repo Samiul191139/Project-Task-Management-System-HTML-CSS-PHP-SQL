@@ -48,12 +48,15 @@ if (isset($_SESSION["user"]))
                         <!-- <div class="notify" > </div> -->
                         <button type="submit" name="submit" class="btn">Register</button>
                     </form>
-                    <p>Already Registered? <a href="login.php">Login</a></p>
+                    <p class="inform">Already Registered? <a href="login.php">Login</a></p>
                 </div>
             </div>
         </div>
     </div> 
 </body>
+<footer>
+    <p class="foot">Copyright © 2024 Task Managemnt System®. All rights reserved. </p>
+</footer>
 </html>
 
 <?php

@@ -42,12 +42,15 @@ if (isset($_SESSION["user"]))
                         </div>
                         <button type="submit" name="submit" class="btn">Login</button>
                     </form>
-                    <p>Don't have an account? <a href="Registration.php">Register here</a></p>
+                    <p class="inform">Don't have an account? <a href="Registration.php">Register here</a></p>
                 </div>
             </div>
         </div>
     </div> 
 </body>
+<footer>
+    <p class="foot">Copyright © 2024 Task Managemnt System®. All rights reserved. </p>
+</footer>
 </html>
 
 <?php
