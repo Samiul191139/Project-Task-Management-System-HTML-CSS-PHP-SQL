@@ -37,7 +37,7 @@ $e_id = $_SESSION["e_id"];
     <main>
         <h2>Information Table</h2>
         <form action="e_task_done.php" method="post">
-            <input type="submit" name="submit" value="Change Status" class="submit-btn">
+        <input type="submit" name="submit" value="Change Status" class="r-submit-btn">
         </form>
         <?php
         // Query to get the tasks
@@ -71,7 +71,10 @@ $e_id = $_SESSION["e_id"];
         }
         $stmt->close();
         ?>
-        
+        <br>
+        <form action="employee.php" method="post">
+        <input type="submit" name="submit" value="Go Back" class="submit-btn">
+        </form>
     </main>
 </body>
 </html>

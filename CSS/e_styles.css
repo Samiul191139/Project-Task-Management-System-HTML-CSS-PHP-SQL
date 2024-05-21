@@ -13,7 +13,7 @@ body {
 
 h2 {
   text-align: center;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
   padding-top: 20px;
 }
 
@@ -155,6 +155,7 @@ tr:hover {
   flex-wrap: wrap;
   gap: 20px;
   margin-top: 20px;
+  margin-bottom: 25px;
 }
 
 .card {

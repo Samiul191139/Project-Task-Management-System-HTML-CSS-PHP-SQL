@@ -64,10 +64,10 @@ $incomplete_count = $result_incomplete_tasks->fetch_assoc()['incomplete_count'];
         </div>
     </header>
     <main>
-        <h1>Welcome to Your Dashboard</h1>
+        <h2>Welcome to Your Dashboard</h1>
         <?php
         if (isset($_SESSION["e_id"])) {
-            echo "<p>You are logged in as User ID: " . $_SESSION["e_id"] . "</p>";
+            // echo "<p>You are logged in as User ID: " . $_SESSION["e_id"] . "</p>";
         } else {
             echo "<p>You are not logged in.</p>";
         }
