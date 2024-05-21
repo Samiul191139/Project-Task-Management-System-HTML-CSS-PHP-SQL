@@ -78,7 +78,7 @@
         } 
         else 
         {
-            echo "<p>You are not logged in.</p>";
+            echo "<p class='notify'>You are not logged in.</p>";
             header("Location: login.php");
             exit();
         }

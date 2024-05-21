@@ -47,7 +47,8 @@ $e_id = $_SESSION["e_id"];
         $stmt->execute();
         $result = $stmt->get_result();
 
-        if ($result->num_rows > 0) {
+        if ($result->num_rows > 0) 
+        {
             echo "<table>
                 <tr>
                     <th>Project NO.</th>
@@ -66,8 +67,10 @@ $e_id = $_SESSION["e_id"];
                 </tr>";
             }
             echo "</table>";
-        } else {
-            echo "<p>NO task found.</p>";
+        } 
+        else 
+        {
+            echo "<p class='notify'>No task found </p>";
         }
         $stmt->close();
         ?>

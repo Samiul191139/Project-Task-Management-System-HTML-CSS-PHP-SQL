@@ -94,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($num_tasks === false || $num_tasks <= 0) 
     {
-        echo "Please enter a valid number of tasks.";
+        echo "<p class='notify'>Please enter a valid number of tasks </p>";
     }
     else 
     {
@@ -187,7 +187,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_task"]))
     // Check if all fields are filled
         if (!$allFieldsFilled) 
         {
-            echo "Please fill in all fields for the Tasks.";
+            echo "<p class='notify'>Please fill in all fields for the Tasks </p>";
         } 
         else 
         {

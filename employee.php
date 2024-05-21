@@ -69,7 +69,7 @@ $incomplete_count = $result_incomplete_tasks->fetch_assoc()['incomplete_count'];
         if (isset($_SESSION["e_id"])) {
             // echo "<p>You are logged in as User ID: " . $_SESSION["e_id"] . "</p>";
         } else {
-            echo "<p>You are not logged in.</p>";
+            echo "<p class='notify'>You are not logged in </p>";
         }
         ?>
         <div class="dashboard">
