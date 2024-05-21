@@ -18,7 +18,7 @@ if (isset($_SESSION["user"]))
     <h3 class="logo">Logo</h3>
     <nav class="navigation">
         <a href="#" class="nav-link">Home</a>
-        <a href="#" class="nav-link">About</a>
+        <a href="about.php" class="nav-link">About</a>
         <a href="#" class="nav-link">Services</a>
         <a href="#" class="nav-link">Contact</a>
         <a href="login.php" class="btnloginpopup">Login</a>
