@@ -40,8 +40,10 @@ $e_id = $_SESSION["e_id"];
         <input type="submit" name="submit" value="Change Status" class="r-submit-btn">
         </form>
         <?php
-        // Query to get the tasks
-        $sql = "SELECT * FROM task WHERE employee_id = ? ORDER BY project_id ASC";
+        // Query to get the tasks along with their due dates
+        $sql = "SELECT task.*, project.due_date FROM task 
+                JOIN project ON task.project_id = project.id 
+                WHERE task.employee_id = ? ORDER BY task.project_id ASC";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $e_id);
         $stmt->execute();
@@ -55,6 +57,7 @@ $e_id = $_SESSION["e_id"];
                     <th>Task NO.</th>
                     <th>Description</th>
                     <th>Assigned Date</th>
+                    <th>Due Date</th>
                     <th>Status</th>
                 </tr>";
             while ($row = $result->fetch_assoc()) {
@@ -63,6 +66,7 @@ $e_id = $_SESSION["e_id"];
                     <td>" . htmlspecialchars($row["id"]) . "</td>
                     <td>" . htmlspecialchars($row["description"]) . "</td>
                     <td>" . htmlspecialchars($row["Date"]) . "</td>
+                    <td>" . htmlspecialchars($row["due_date"]) . "</td>
                     <td>" . htmlspecialchars($row["status"]) . "</td>
                 </tr>";
             }

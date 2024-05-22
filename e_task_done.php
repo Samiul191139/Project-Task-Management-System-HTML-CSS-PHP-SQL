@@ -20,7 +20,10 @@ if($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST['statuses']))
     }
     
     // Fetch the result set again to update the statuses
-    $sql = "SELECT * FROM task WHERE employee_id = {$e_id} ORDER BY project_id ASC";
+    $sql = "SELECT task.*, project.due_date FROM task 
+            JOIN project ON task.project_id = project.id 
+            WHERE task.employee_id = {$e_id} 
+            ORDER BY task.project_id ASC";
     $result=mysqli_query($conn,$sql);
     
     // Loop through the rows and update the statuses
@@ -68,47 +71,53 @@ if($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST['statuses']))
             <input type="submit" name="submit" value="Go Back" class="l-submit-btn">
             </form>
         </div>
-    <?php
-    $sql = "SELECT * FROM task WHERE employee_id = {$e_id} ORDER BY project_id ASC";
-    $result = mysqli_query($conn, $sql);
-    if (!(mysqli_num_rows($result) > 0)) {
-        // if the number of rows is not greater than 0 or empty
-        echo "NO task found.";
-    } 
-    else 
-    {
-        ?>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <table>
-                <tr>
-                    <th>Project NO</th>
-                    <th>Task NO</th>
-                    <th>Description</th>
-                    <th>Assigned Date</th>
-                    <th>Current Status</th>
-                    <th>Change</th>
-                </tr>
-                <?php while($row=mysqli_fetch_assoc($result)): ?>
-            <tr>
-                <td><?php echo $row["project_id"]; ?></td>
-                <td><?php echo $row["id"]; ?></td>
-                <td><?php echo $row["description"]; ?></td>
-                <td><?php echo $row["Date"]; ?></td>
-                <td><?php echo $row["status"]; ?></td>
-                <td>
-                    <select name="statuses[]" id="">
-                        <option value="incomplete" <?php if ($row["status"] == 'incomplete') echo 'selected'; ?>>Incomplete</option>
-                        <option value="on going" <?php if ($row["status"] == 'on going') echo 'selected'; ?>>On Going</option>
-                        <option value="completed" <?php if ($row["status"] == 'completed') echo 'selected'; ?>>Completed</option>
-                    </select>
-                </td>
-            </tr>
-        <?php endwhile; ?>
-        </table>
         <?php
-    }
-    ?>
+        $sql = "SELECT task.*, project.due_date 
+                FROM task 
+                JOIN project ON task.project_id = project.id 
+                WHERE task.employee_id = {$e_id} 
+                ORDER BY task.project_id ASC";
+        $result = mysqli_query($conn, $sql);
+        if (!(mysqli_num_rows($result) > 0)) {
+            // if the number of rows is not greater than 0 or empty
+            echo "NO task found.";
+        } 
+        else 
+        {
+            ?>
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                <table>
+                    <tr>
+                        <th>Project NO</th>
+                        <th>Task NO</th>
+                        <th>Description</th>
+                        <th>Assigned Date</th>
+                        <th>Due Date</th>
+                        <th>Current Status</th>
+                        <th>Change</th>
+                    </tr>
+                    <?php while($row=mysqli_fetch_assoc($result)): ?>
+                <tr>
+                    <td><?php echo $row["project_id"]; ?></td>
+                    <td><?php echo $row["id"]; ?></td>
+                    <td><?php echo $row["description"]; ?></td>
+                    <td><?php echo $row["Date"]; ?></td>
+                    <td><?php echo $row["due_date"]; ?></td>
+                    <td><?php echo $row["status"]; ?></td>
+                    <td>
+                        <select name="statuses[]" id="">
+                            <option value="incomplete" <?php if ($row["status"] == 'incomplete') echo 'selected'; ?>>Incomplete</option>
+                            <option value="on going" <?php if ($row["status"] == 'on going') echo 'selected'; ?>>On Going</option>
+                            <option value="completed" <?php if ($row["status"] == 'completed') echo 'selected'; ?>>Completed</option>
+                        </select>
+                    </td>
+                </tr>
+            <?php endwhile; ?>
+            </table>
+            <input type="submit" name="submit" value="Submit" class="r-submit-btn">
+            <?php
+        }
+        ?>
     </main>
-    <input type="submit" name="submit" value="Submit" class="r-submit-btn">
 </body>
 </html>
