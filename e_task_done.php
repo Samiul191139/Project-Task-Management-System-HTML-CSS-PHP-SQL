@@ -30,7 +30,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST['statuses']))
     $i=0;
     while($row = mysqli_fetch_assoc($result)) 
     {
-        $u_status = mysqli_real_escape_string($conn, $statuses[$i] ?? 'incomplete');
+        $u_status = mysqli_real_escape_string($conn, $statuses[$i]);
         $project_id = mysqli_real_escape_string($conn, $row["project_id"]);
         $task_id = mysqli_real_escape_string($conn, $row["id"]);
         

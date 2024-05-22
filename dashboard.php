@@ -171,7 +171,8 @@ while ($row = mysqli_fetch_assoc($completed_tasks_by_employee_result)) {
                     <th>Email</th>
                     <th>Ongoing Task</th>
                     <th>Assigned Project</th>
-                    <th>Completed Tasks</th>
+                    <th>Completed Project</th>
+                    <th>Completed Task</th>
                 </tr>
                 <?php
                 // Fetch and display the list of employees
@@ -195,12 +196,19 @@ while ($row = mysqli_fetch_assoc($completed_tasks_by_employee_result)) {
                     $completed_projects_row = mysqli_fetch_assoc($completed_projects_result);
                     $completed_project_count = $completed_projects_row['completed_project_count'];
 
+                // Query to get total completed tasks
+                    $completed_task_query = "SELECT COUNT(*) AS total_completed_task FROM task WHERE employee_id = '$employee_id' AND status = 'completed'";
+                    $completed_task_result = mysqli_query($conn, $completed_task_query);
+                    $completed_task_row = mysqli_fetch_assoc($completed_task_result);
+                    $total_completed_task = $completed_task_row['total_completed_task'];
+
                     echo "<tr>";
                     echo "<td>" . $employee_row['id'] . "</td>";
                     echo "<td>" . $employee_row['email'] . "</td>";
                     echo "<td>" . $active_task_count . "</td>";
                     echo "<td>" . $assigned_project_count . "</td>";
                     echo "<td>" . $completed_project_count . "</td>";
+                    echo "<td>" . $total_completed_task . "</td>";
                     echo "</tr>";
                 }
                 ?>
