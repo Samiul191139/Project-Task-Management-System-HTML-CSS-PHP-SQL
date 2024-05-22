@@ -65,6 +65,8 @@ $incomplete_count = $result_incomplete_tasks->fetch_assoc()['incomplete_count'];
     </header>
     <main>
         <h2>Welcome to Your Dashboard</h1>
+        <?php echo "<p>User ID: " . $_SESSION["e_id"] . "</p>"; ?>
+        <?php echo "<p>Mail: " . $_SESSION["e_email"] . "</p>"; ?>
         <?php
         if (isset($_SESSION["e_id"])) {
             // echo "<p>You are logged in as User ID: " . $_SESSION["e_id"] . "</p>";
