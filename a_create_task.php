@@ -76,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         exit();
     }
-    if (isset($_POST['cancel_main'])) //is not working no matter what
+    if (isset($_POST['cancel_main'])) //is not working no matter what (without defininf cancel_main how will it work?)
     { 
         // Check if cancel button is clicked from the main form
         $id = filter_input(INPUT_POST, "id", FILTER_SANITIZE_NUMBER_INT); 

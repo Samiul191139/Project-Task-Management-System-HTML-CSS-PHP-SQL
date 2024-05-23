@@ -12,8 +12,8 @@ if (!isset($_SESSION["a_id"])) {
 
 // Query to get total projects
 $projects_query = "SELECT COUNT(*) AS total_projects FROM project";
-$projects_result = mysqli_query($conn, $projects_query);
-$projects_row = mysqli_fetch_assoc($projects_result);
+$projects_result = mysqli_query($conn, $projects_query);  //query()	- Performs a query against a database
+$projects_row = mysqli_fetch_assoc($projects_result);     //fetch_assoc() - Fetches a result row as an associative array
 $total_projects = $projects_row['total_projects'];
 
 // Query to get total tasks

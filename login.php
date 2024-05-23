@@ -57,11 +57,11 @@ if (isset($_SESSION["user"]))
 //session_start();
 include("database.php");
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") 
+if ($_SERVER["REQUEST_METHOD"] == "POST") //$_POST variable is used to collect values from HTML forms submitted using the POST method
 {
     $id = filter_input(INPUT_POST, "id", FILTER_SANITIZE_NUMBER_INT);
     $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_SPECIAL_CHARS);
-    $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL); // Use FILTER_SANITIZE_EMAIL for email
+    $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL); // Use FILTER_SANITIZE_EMAIL for email (filter function)
     $type = $_POST["user_type"];
 
     if (empty($id) || empty($password) || empty($email)) 
