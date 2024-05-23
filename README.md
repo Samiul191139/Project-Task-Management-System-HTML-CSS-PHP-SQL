@@ -1,4 +1,4 @@
-<h1 align="center">Flight-Management-and-Ticket-Booking-System</h1>
+<h1 align="center">Project Task Management System using HTML-CSS-PHP-SQL</h1>
 
 ## Table of Contents
 
@@ -9,9 +9,7 @@
 - [Made Using](#made-using)
 - [How to Run](#how-to-run)
 - [Screenshots](#screenshots)
-  - [Login page](#login-page)
-  - [Registration page](#registration-page)
-  - [Demo page for final output](#demo-page-for-final-output)
+- [Collaborators](#collaborators)
 - [Contact](#contact)
 
 ## About
@@ -46,11 +44,29 @@
   - Now run and enjoy.
 
 ## Screenshots
+- Login and Registration
   ### Login page
-![Login page](Assets/login_page.png)
+![Login page](Assets/login_page.PNG)
   ### Registration page
-![Registration page](Assets/registration_page.png)
+![Registration page](Assets/registration_page.PNG)
 
+- Admin
+  ### Admin Dashboard
+![Registration page](Assets/dashboard.PNG)
+  ### View Projects
+![Registration page](Assets/view_projects.PNG)
+
+- Employee
+  ### Employee Dashboard
+![Registration page](Assets/employee_page.PNG)
+  ### View Tasks
+![Registration page](Assets/view_tasks_emp.PNG)
+  ### Change Status of Tasks
+![Registration page](Assets/status_change.PNG)
+
+## Collaborators
+- Alif Hassan - GitHub [@AnandoHassan](https://github.com/AnandoHassan)
+- Sabiha - GitHub [@sabiha318](https://github.com/sabiha318)
 
 ## Contact
 - GitHub [@Samiul191139](https://github.com/Samiul191139)
